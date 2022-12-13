@@ -1,7 +1,3 @@
-/* Wrap all code that interacts with the DOM in a call to jQuery to ensure that
- the code isn't run until the browser has finished rendering all the elements
- in the html.
-*/
 $(function () {
 
     // Add a listener for click events on the save button
@@ -12,7 +8,7 @@ $(function () {
     var hour = $(this).parent().attr("id");
 
       // Save userInput to local storage by hour
-    localStorage.setItem(userInput, hour);
+    localStorage.setItem(hour, userInput);
 
     console.log(hour, userInput);
   });
@@ -35,24 +31,41 @@ $(function () {
         $(this).addClass("future");
       } 
     });
-  }
+  };
+
+     // Display user input from localStorage even if window is refreshed
+
+  console.log(localStorage) 
 
   
+    for (var i = 0; i < localStorage.length; i++) {
 
-  /* TODO: Add code to get any user input that was saved in localStorage and set
-   the values of the corresponding textarea elements. HINT: How can the id
-   attribute of each time-block be used to do this?
-  */
+     var key = localStorage.key(i)
+     var input = localStorage.getItem(key);
 
-  // Display user input from localStorage
-  //  localStorage.getItem(userInput, hour);
+      $("#hour-9 .description").val(input)
+      $("#hour-10 .description").val(input)
+      $("#hour-11 .description").val(input)
+      $("#hour-12 .description").val(input)
+      $("#hour-13 .description").val(input)
+      $("#hour-14 .description").val(input)
+      $("#hour-15 .description").val(input)
+      $("#hour-16 .description").val(input)
+      $("#hour-17 .description").val(input)
 
-   // Add code to display the current date in the header of the page.
+
+      // console.log(input)
+      console.log(key)
+    }
+
+    // Add code to display the current date in the header of the page.
   var currentDate = dayjs().format("dddd, MMMM D, YYYY");
   $("#currentDay").html(currentDate);
 
     // Header aligned in Center
   $("header").css("text-align", "center");
 
+
   timeblockState();
+
 });
